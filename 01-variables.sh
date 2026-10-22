@@ -1,9 +1,8 @@
 #!/bin/bash
-
-#I Want to comment lines and define variables
-
+date=$(date)
 firstname="Immaniyelu"
 lastname="Battula"
-echo "Welcome $firstname , $lastname "
+echo "Welcome $firstname , $lastname ! How are you ..Have a nice day !!!!"
+echo "Todays date is : $date "
 
 
