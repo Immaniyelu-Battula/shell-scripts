@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "All variables pass through the script : $@"
+echo "Number of variables pass through the script : $#"
+echo "First variable : $1"
+echo "script name : $0"
+echo "who is running the script : $USER"
+echo "directory name running : $PWD"
+echo "Home directory : $HOME"
+echo "Real path : $REALPATH"
+echo "pid of the current script : $$"
