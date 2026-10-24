@@ -8,6 +8,6 @@ echo " command is success"
 fi
 }
 
-date =$(date +%s)
-
+seconds=$(date +%s)
+echo "total seconds $seconds seconds"
 validate 
