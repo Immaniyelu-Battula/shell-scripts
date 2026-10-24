@@ -11,7 +11,7 @@ Y="e[33m"
 O="e[34m"
 N="e[0m"
 
-if [ user_id -ne 0 ]; then
+if [ $user_id -ne 0 ]; then
 echo -e "$R ..Please run with root user $N" | tee -a $LOGFILE
 exit 1
 fi
