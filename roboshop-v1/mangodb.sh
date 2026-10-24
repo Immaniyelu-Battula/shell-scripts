@@ -10,7 +10,7 @@ G="\e[32m"
 Y="\e[33m"
 O="\e[34m"
 N="\e[0m"
-scripts_dir=$(PWD)
+scripts_dir="/home/ec2-user/shell-scripts/roboshop-v1"
 timestamp=$(date +%y-%m-%d-%H-%m)
 
 if [ $user_id -ne 0 ]; then
@@ -29,7 +29,7 @@ validate(){
 
 echo "script dir : $scripts_dir"
 
-cp "$scripts_dir/mongo.repo" /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
+cp "$(scripts_dir)/mongo.repo" /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
 validate $? "Copying the mongo repo file"
 
 dnf install mongodb-org -y &>> $LOGFILE
