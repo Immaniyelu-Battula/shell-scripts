@@ -14,10 +14,9 @@ validate(){
 
 for package in $@
 do
-dnf list install $package
-
-if [ $? -ne 0];then
-dnf install $package -y 
+dnf list install $package & >> $logfile
+if [ $? -ne 0] ; then
+dnf install $package -y  & >> $logfile
 validate $package $?
 else
 echo "$package already installed."
