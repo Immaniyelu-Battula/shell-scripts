@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./functions.sh
+source ~/shell-scripts/functions.sh
 date =$(date +%S)
 
 validate 
