@@ -7,3 +7,7 @@ else
 echo " command is success"
 fi
 }
+
+date =$(date +%S)
+
+validate 
