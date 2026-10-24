@@ -7,7 +7,7 @@ exit 1
 fi 
 echo "Installing packages"
 
-dnf install http -y
+dnf install httpd -y
 
 if [ $? -ne 0 ]; then
 
@@ -15,7 +15,7 @@ echo "package installation failed.."
 else
 echo "Package installation completed successfully.."
 fi
-dnf install mango -y
+dnf install mangod -y
 
 if [ $? -ne 0 ]; then
 
