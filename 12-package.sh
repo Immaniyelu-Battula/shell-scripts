@@ -12,10 +12,9 @@ validate(){
  fi
 }
 
-
 for package in $@
 do
-dnd list install $package
+dnf list install $package
 
 if [ $? -ne 0];then
 dnf install $package -y 
