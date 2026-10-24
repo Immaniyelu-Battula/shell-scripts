@@ -5,21 +5,23 @@ if [ $user_id -ne 0 ]; then
 echo "Please run with root access"
 exit 1
 fi 
-echo "Installing packages"
 
-dnf install httpd -y
+dnf list install mysql 
+
+if [ $? -eq 0 ]; then
+
+echo "Mysql already installed ..Skipping mysql installtion"
+
+else 
+
+dnf install mysql -y
 
 if [ $? -ne 0 ]; then
 
-echo "package installation failed.."
+echo " mysql installation failed"
+
 else
-echo "Package installation completed successfully.."
+
+echo "Mysql installtion success"
 fi
-dnf install mangod -y
-
-if [ $? -ne 0 ]; then
-
-echo "package installation failed.."
-else
-echo "Package installation completed successfully.."
 fi
