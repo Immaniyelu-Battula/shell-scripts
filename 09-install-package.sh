@@ -7,7 +7,7 @@ exit 1
 fi 
 echo "Installing packages"
 
-dnf install nginx -y
+dnf install http -y
 
 if [ $? -ne 0 ]; then
 
@@ -15,7 +15,7 @@ echo "package installation failed.."
 else
 echo "Package installation completed successfully.."
 fi
-dnf install mysql -y
+dnf install mango -y
 
 if [ $? -ne 0 ]; then
 
