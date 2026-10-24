@@ -8,6 +8,6 @@ echo " command is success"
 fi
 }
 
-date =$(date +%S)
+date =$(date)
 
 validate 
