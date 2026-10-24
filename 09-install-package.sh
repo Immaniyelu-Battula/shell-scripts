@@ -10,11 +10,9 @@ echo "Installing packages"
 dnf install nginxx -y
 dnf install mysql -y
 
-if [ $? -eq 0 ]; then
+if [ $? -ne 0 ]; then
 
-echo "package installation completed.."
-
+echo "package installation failed.."
 else
-
-echo "Package installation failed..please retry.."
+echo "Package installation completed successfully.."
 fi
