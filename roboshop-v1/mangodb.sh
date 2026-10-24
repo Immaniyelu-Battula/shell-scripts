@@ -10,7 +10,8 @@ G="\e[32m"
 Y="\e[33m"
 O="\e[34m"
 N="\e[0m"
-timestamp=$(date +%y-%m-%d-%h%m%s)
+timestamp=$(date +%y-%m-%d-%H-%m-%s
+)
 
 if [ $user_id -ne 0 ]; then
 echo -e "$R ..Please run with root user $N" | tee -a $LOGFILE
