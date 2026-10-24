@@ -7,7 +7,14 @@ exit 1
 fi 
 echo "Installing packages"
 
-dnf install nginxx -y
+dnf install nginx -y
+
+if [ $? -ne 0 ]; then
+
+echo "package installation failed.."
+else
+echo "Package installation completed successfully.."
+fi
 dnf install mysql -y
 
 if [ $? -ne 0 ]; then
