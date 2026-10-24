@@ -10,6 +10,7 @@ G="\e[32m"
 Y="\e[33m"
 O="\e[34m"
 N="\e[0m"
+scripts_dir=$(PWD)
 timestamp=$(date +%y-%m-%d-%H-%m)
 
 if [ $user_id -ne 0 ]; then
@@ -26,6 +27,7 @@ validate(){
     fi
 }
 
+echo "script dir : $scripts_dir"
 
 cp mongo.rep /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
 validate $? "Copying the mongo repo file"
