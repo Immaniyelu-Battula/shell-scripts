@@ -18,7 +18,7 @@ exit 1
 fi
 
 validate(){
-    if [$1 -ne 0]; then
+    if [ $1 -ne 0 ]; then
     echo -e "$timestamp [INFO] $2 ..$R Failure $N" | tee -a $LOGFILE
     exit 1
     else
