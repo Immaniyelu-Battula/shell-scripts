@@ -27,23 +27,23 @@ validate(){
 }
 
 
-cp mongo.rep /etc/yum.repos.d/mongo.repo
+cp mongo.rep /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
 validate $? "Copying the mongo repo file"
 
-dnf install mongodb-org -y 
+dnf install mongodb-org -y &>> $LOGFILE
 
 validate $? "Instaling the Mongodb binaries"
 
-systemctl enable mongod 
+systemctl enable mongod &>> $LOGFILE
 validate $? "Enabling the mongod"
-systemctl start mongod 
+systemctl start mongod  &>> $LOGFILE
 validate $? "Starting the mongod"
 
-sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
 
 validate $? "changing the mongod.conf file"
 
-systemctl restart mongod
+systemctl restart mongod &>> $LOGFILE
 
 validate $? "Restarting the mongod demon"
 
