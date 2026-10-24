@@ -2,4 +2,4 @@
 
 date =$(date +%S)
 
-validate $?
+validate "$?"
