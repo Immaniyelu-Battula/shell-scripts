@@ -26,5 +26,24 @@ validate(){
     fi
 }
 
-echo "time now is : $timestamp"
-validate $? "checking the time now"
+
+cp mongo.rep /etc/yum.repos.d/mongo.repo
+validate $? "Copying the mongo repo file"
+
+dnf install mongodb-org -y 
+
+validate $? "Instaling the Mongodb binaries"
+
+systemctl enable mongod 
+validate $? "Enabling the mongod"
+systemctl start mongod 
+validate $? "Starting the mongod"
+
+sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+
+validate $? "changing the mongod.conf file"
+
+systemctl restart mongod
+
+validate $? "Restarting the mongod demon"
+
