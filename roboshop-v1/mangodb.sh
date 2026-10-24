@@ -29,7 +29,7 @@ validate(){
 
 echo "script dir : $scripts_dir"
 
-cp "$scripts_dir/mongo.repo" /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
+cp "$scripts_dir/mongo.repo /etc/yum.repos.d/mongo.repo  &>> $LOGFILE
 validate $? "Copying the mongo repo file"
 
 dnf install mongodb-org -y &>> $LOGFILE
