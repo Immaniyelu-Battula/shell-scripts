@@ -38,13 +38,13 @@ validate $? "enable version 20 Nodejs"
 dnf install nodejs -y &>> $LOGFILE
 validate $? "Isnstalling version 20 Nodejs"
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGFILE
+rm -rf /app &>> $LOGFILE
 mkdir /app 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>> $LOGFILE
 cd /app 
 rm -rf /tmp/catalogue.zip &>> $LOGFILE
 unzip /tmp/catalogue.zip &>> $LOGFILE
 validate $? "downloading & unzipping catalogue.zip"
-rm -rf /app &>> $LOGFILE
 cd /app 
 npm install &>> $LOGFILE 
 validate $? "compiling nodejs"
