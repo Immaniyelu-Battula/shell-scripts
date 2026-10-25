@@ -1,0 +1,17 @@
+aws ec2 run-instances \
+    --image-id ami-0055977a6e828a4f4 \
+    --instance-type t3.micro \
+    --security-groups "expense-common" \
+    --query 'Instances[0].InstanceId' \
+    --output text
+
+
+
+    aws ec2 run-instances \
+    --image-id ami-0055977a6e828a4f4 \
+    --instance-type t3.micro \
+   --security-group-ids sg-0e1875cf2c9414138 \
+    --subnet-id subnet-09cc0b32fa38571c7 \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=expense-dev}]' \
+    --query 'Instances[0].InstanceId' \
+    --output text

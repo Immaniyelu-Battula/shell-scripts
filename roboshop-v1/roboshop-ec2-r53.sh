@@ -6,17 +6,17 @@ domain_name="immaniyelu.shop"
 
 for instance in $@
 do
+echo "Instace is createing $instance"
 instance_id=$(aws ec2 run-instances \
     --image-id $ami_id \
-    --count 1 \
     --instance-type t3.micro \
-    --security-group-ids sg-0e1875cf2c9414138 \
-    --subnet-id subnet-09cc0b32fa38571c7
-    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]")
+   --security-group-ids sg-0e1875cf2c9414138 \
+    --subnet-id subnet-09cc0b32fa38571c7 \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=expense-dev}]' \
+    --query 'Instances[0].InstanceId' \
+    --output text)
 
 echo "insatnce id is : $instance_id "
-
-sleep 100
 
 ip=$(aws ec2 describe-instances \
   --instance-ids "$instance_id" \
@@ -31,12 +31,12 @@ r53=$(aws route53 change-resource-record-sets \
       {
         "Action": "UPSERT",
         "ResourceRecordSet": {
-          "Name": "${instance}.immaniyelu.shop",
+          "Name": "'${instance}.immaniyelu.shop'",
           "Type": "A",
           "TTL": 1,
           "ResourceRecords": [
             {
-              "Value": "${ip}"
+              "Value": "'${ip}'"
             }
           ]
         }
