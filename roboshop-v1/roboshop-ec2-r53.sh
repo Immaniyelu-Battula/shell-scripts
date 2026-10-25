@@ -30,12 +30,12 @@ r53=$(aws route53 change-resource-record-sets \
       {
         "Action": "UPSERT",
         "ResourceRecordSet": {
-          "Name": "$instance.immaniyelu.shop",
+          "Name": "${instance}.immaniyelu.shop",
           "Type": "A",
           "TTL": 1,
           "ResourceRecords": [
             {
-              "Value": "$ip"
+              "Value": "${ip}"
             }
           ]
         }
