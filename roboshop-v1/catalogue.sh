@@ -42,7 +42,6 @@ rm -rf /app &>> $LOGFILE
 mkdir /app 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>> $LOGFILE
 cd /app 
-rm -rf /tmp/catalogue.zip &>> $LOGFILE
 unzip /tmp/catalogue.zip &>> $LOGFILE
 validate $? "downloading & unzipping catalogue.zip"
 cd /app 
