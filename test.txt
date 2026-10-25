@@ -1,3 +1,0 @@
-sshpass -p 'DevOps321' ssh ec2-user@98.86.175.139
-
-Redhat-9-DevOps-Practice
