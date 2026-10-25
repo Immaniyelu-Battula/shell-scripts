@@ -47,7 +47,7 @@ validate $? "downloading & unzipping catalogue.zip"
 cd /app 
 npm install &>> $LOGFILE 
 validate $? "compiling nodejs"
-cp catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE 
+cp $scripts_dir/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE 
 validate $? "copy the catalogue file"
 systemctl daemon-reload &>> $LOGFILE 
 validate $? "restaring catalogue daemon"
