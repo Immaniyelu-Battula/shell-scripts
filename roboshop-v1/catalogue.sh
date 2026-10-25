@@ -30,32 +30,32 @@ validate(){
 echo "script dir : $scripts_dir"
 
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>> $LOGFILE
 validate $? "Disabling old Nodejs"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &>> $LOGFILE
 validate $? "enable version 20 Nodejs"
-dnf install nodejs -y
+dnf install nodejs -y &>> $LOGFILE
 validate $? "Isnstalling version 20 Nodejs"
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGFILE
 validate $? "user adding"
 mkdir /app 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>> $LOGFILE
 cd /app 
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>> $LOGFILE
 validate $? "downloading & unzipping catalogue.zip"
 cd /app 
-npm install 
+npm install &>> $LOGFILE 
 validate $? "compiling nodejs"
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE 
 validate $? "copy the catalogue file"
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOGFILE 
 validate $? "restaring catalogue daemon"
-systemctl enable catalogue 
-systemctl start catalogue
+systemctl enable catalogue &>> $LOGFILE
+systemctl start catalogue &>> $LOGFILE
 validate $? "restarting the  catalogue"
 
-dnf install mongodb-mongosh -y
+dnf install mongodb-mongosh -y &>> $LOGFILE
 
 
 #mongosh --host mongodb.immaniyelu.shop </app/db/master-data.js
