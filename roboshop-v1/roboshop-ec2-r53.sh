@@ -10,10 +10,10 @@ instance_id=$(aws ec2 run-instances \
     --image-id $ami_id \
     --count 1 \
     --instance-type t3.micro \
-    --security-groups sg-0e1875cf2c9414138 \
+    --security-groups-ids sg-0e1875cf2c9414138 \
     --subnet-id subnet-0a80134e740dd411a)
 
-    if [ $instance -eq "frontend" ]; then
+    if [ "$instance" -eq "frontend" ]; then
 
 ip=$(aws ec2 describe-instances \
     --instance-ids $instance \
