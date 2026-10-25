@@ -30,5 +30,5 @@ ip=$(aws ec2 describe-instances \
     --instance-ids $instance \
     --query "Reservations[*].Instances[*].PrivateIpAddress" \
     --output text)
-fi
 done 
+fi
