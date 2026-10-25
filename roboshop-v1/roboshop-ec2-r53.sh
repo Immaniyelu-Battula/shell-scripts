@@ -14,9 +14,9 @@ instance_id=$(aws ec2 run-instances \
     --subnet-id subnet-09cc0b32fa38571c7)
 
 ip=$(aws ec2 describe-instances \
-    --instance-ids $instance_id \
-    --query "Reservations[*].Instances[*].PublicIpAddress" \
-    --output text)
+  --instance-ids "$instance_id" \
+  --query 'Reservations[0].Instances[0].PublicIpAddress' \
+  --output text)
 
 r53=$(aws route53 change-resource-record-sets \
   --hosted-zone-id $zone_id \
