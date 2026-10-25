@@ -11,20 +11,36 @@ instance_id=$(aws ec2 run-instances \
     --count 1 \
     --instance-type t3.micro \
     --security-group-ids sg-0e1875cf2c9414138 \
-    --subnet-id subnet-0a80134e740dd411a)
-
-    if [ "$instance" = "frontend" ]; then
+    --subnet-id subnet-09cc0b32fa38571c7)
 
 ip=$(aws ec2 describe-instances \
     --instance-ids $instance_id \
     --query "Reservations[*].Instances[*].PublicIpAddress" \
     --output text)
-    else
-  ip=$(aws ec2 describe-instances \
-    --instance-ids $instance_id \
-    --query "Reservations[*].Instances[*].PrivateIpAddress" \
-    --output text)  
-    r53_record="$instance.$domain_name"
-    echo "route53 record - $r53_record"
-fi
+
+r53=$(aws route53 change-resource-record-sets \
+  --hosted-zone-id $zone_id \
+  --change-batch '{
+    "Comment": "Update frontend DNS record",
+    "Changes": [
+      {
+        "Action": "UPSERT",
+        "ResourceRecordSet": {
+          "Name": "$instance.immaniyelu.shop",
+          "Type": "A",
+          "TTL": 1,
+          "ResourceRecords": [
+            {
+              "Value": "$ip"
+            }
+          ]
+        }
+      }
+    ]
+  }')
+   
 done
+
+
+
+
