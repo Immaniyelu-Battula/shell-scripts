@@ -38,7 +38,6 @@ validate $? "enable version 20 Nodejs"
 dnf install nodejs -y &>> $LOGFILE
 validate $? "Isnstalling version 20 Nodejs"
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGFILE
-validate $? "user adding"
 mkdir /app 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>> $LOGFILE
 cd /app 
