@@ -16,12 +16,12 @@ instance_id=$(aws ec2 run-instances \
     if [ "$instance" = "frontend" ]; then
 
 ip=$(aws ec2 describe-instances \
-    --instance-ids $instance \
+    --instance-ids $instance_id \
     --query "Reservations[*].Instances[*].PublicIpAddress" \
     --output text)
     else
-  ips=$(aws ec2 describe-instances \
-    --instance-ids $instance \
+  ip=$(aws ec2 describe-instances \
+    --instance-ids $instance_id \
     --query "Reservations[*].Instances[*].PrivateIpAddress" \
     --output text)  
     r53_record="$instance.$domain_name"
