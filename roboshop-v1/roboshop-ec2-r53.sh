@@ -5,10 +5,10 @@ domain_name="immaniyelu.shop"
 
 if [ $1 -eq "frontend" ];then
 web_instance=$(aws ec2 run-instances \
-    --image-id ami-0055977a6e828a4f4 \
+    --image-id $ami_id \
     --count 1 \
     --instance-type t3.micro \
-    --security-groups sg-0e1875cf2c9414138,sg-0d4bda11836aaf555 \
+    --security-groups sg-0e1875cf2c9414138 \
     --subnet-id subnet-09cc0b32fa38571c7)
 echo "instance is created : $web_instance"
 web_ip=$(aws ec2 describe-instances \
@@ -21,10 +21,10 @@ web_ip=$(aws ec2 describe-instances \
 for instance in $@
 do
 instance=$(aws ec2 run-instances \
-    --image-id ami-0055977a6e828a4f4 \
+    --image-id $ami_id \
     --count 1 \
     --instance-type t3.micro \
-    --security-groups sg-0e1875cf2c9414138,sg-02e1f3f087a51c145 \
+    --security-groups sg-0e1875cf2c9414138 \
     --subnet-id subnet-0a80134e740dd411a)
 
 ip=$(aws ec2 describe-instances \
