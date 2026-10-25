@@ -13,7 +13,7 @@ instance_id=$(aws ec2 run-instances \
     --security-groups sg-0e1875cf2c9414138 \
     --subnet-id subnet-0a80134e740dd411a)
 
-    if [ instance_id -eq "frontend" ]; then
+    if [ $instance -eq "frontend" ]; then
 
 ip=$(aws ec2 describe-instances \
     --instance-ids $instance \
