@@ -43,7 +43,8 @@ r53=$(aws route53 change-resource-record-sets \
       }
     ]
   }')
-   
+
+echo "Record added in route53 : $r53"   
 done
 
 
