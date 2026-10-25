@@ -2,21 +2,33 @@
 ami_id="ami-0055977a6e828a4f4"
 zone_id="Z06556651FH3Z7Y34VUG6"
 domain_name="immaniyelu.shop"
-web=$1
-app=$2
-db=$3
 
 if [ $1 -eq "frontend"];then
-web_instance=$()
+web_instance=$(aws ec2 run-instances \
+    --image-id ami-0055977a6e828a4f4 \
+    --count 1 \
+    --instance-type t3.micro \
+    --security-groups sg-0e1875cf2c9414138,sg-0d4bda11836aaf555 \
+    --subnet-id subnet-09cc0b32fa38571c7)
+
+web_ip=$(aws ec2 describe-instances \
+    --instance-ids $web_instance \
+    --query 'Reservations[*].Instances[*].PublicIpAddress' \
+    --output text)
+    else
+
 for instance in $@
 do
-instance_id=$()
+instance=$(aws ec2 run-instances \
+    --image-id ami-0055977a6e828a4f4 \
+    --count 1 \
+    --instance-type t3.micro \
+    --security-groups sg-0e1875cf2c9414138,sg-02e1f3f087a51c145 \
+    --subnet-id subnet-0a80134e740dd411a)
 
-if [$instance -eq "web"]; then
-
-ip=$()
-
-else
-ip=$()
+ip=$(aws ec2 describe-instances \
+    --instance-ids $instance \
+    --query "Reservations[*].Instances[*].PrivateIpAddress" \
+    --output text)
 fi
 done 
