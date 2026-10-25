@@ -13,13 +13,17 @@ instance_id=$(aws ec2 run-instances \
     --security-group-ids sg-0e1875cf2c9414138 \
     --subnet-id subnet-09cc0b32fa38571c7)
 
+echo "insatnce id is : $instance_id "
+
+sleep 100
+
 ip=$(aws ec2 describe-instances \
   --instance-ids "$instance_id" \
   --query 'Reservations[0].Instances[0].PublicIpAddress' \
   --output text)
 
 r53=$(aws route53 change-resource-record-sets \
-  --hosted-zone-id $zone_id \
+  --hosted-zone-id "$zone_id" \
   --change-batch '{
     "Comment": "Update frontend DNS record",
     "Changes": [
