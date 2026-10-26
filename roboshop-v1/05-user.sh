@@ -29,25 +29,28 @@ validate(){
 
 echo "script start time $timestamp"
 
-dnf module disable nodejs -y
-dnf module enable nodejs:20 -y
+dnf module disable nodejs -y &>> $LOGFILE
+dnf module enable nodejs:20 -y &>> $LOGFILE 
 validate $? "enable nodejs:20 version"
-dnf install nodejs -y
+dnf install nodejs -y &>> $LOGFILE
 validate $? "install nodejs"
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-rm -rf /app
-mkdir /app 
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGFILE
+rm -rf /app  &>> $LOGFILE
+mkdir /app &>> $LOGFILE
 validate $? "delete & create /app directory"
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip 
-cd /app 
-unzip /tmp/user.zip
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>> $LOGFILE
+cd /app &>> $LOGFILE
+unzip /tmp/user.zip &>> $LOGFILE
 validate $? "download & extract user folder"
-cd /app 
-npm install 
+cd /app &>> $LOGFILE 
+npm install &>> $LOGFILE
 validate $? "compile nodejs"
-cp $scripts_dir/user.service /etc/systemd/system/user.service
-systemctl daemon-reload
+cp $scripts_dir/user.service /etc/systemd/system/user.service &>> $LOGFILE
+systemctl daemon-reload &>> $LOGFILE 
 validate $? "restart the user services"
-systemctl enable user 
-systemctl start user
+systemctl enable user &>> $LOGFILE
+systemctl start user &>> $LOGFILE
 validate $? "enable & start user services"
+
+echo "script completed time $timestamp"
+
