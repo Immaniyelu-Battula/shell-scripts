@@ -28,7 +28,7 @@ validate(){
 }
 
 echo "script start time $timestamp"
-
+cp $scripts_dir/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 dnf install rabbitmq-server -y &>> $LOGFILE
 validate $? "install rabbitmq binaries"
 systemctl enable rabbitmq-server &>> $LOGFILE
