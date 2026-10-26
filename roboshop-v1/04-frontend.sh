@@ -27,7 +27,7 @@ validate(){
     fi
 }
 
-echo "script dir : $scripts_dir"
+echo "script start time $timestamp"
 
 
 dnf module disable nginx -y &>> $LOGFILE
@@ -47,5 +47,6 @@ validate $? "unzip the artifact"
 cp $scripts_dir/nginx.conf /etc/nginx/nginx.conf &>> $LOGFILE
 validate $? "copying the nginx conf file"
 systemctl restart nginx  &>> $LOGFILE
-
 validate $? "restarting nginx"
+
+echo "script completed time $timestamp"

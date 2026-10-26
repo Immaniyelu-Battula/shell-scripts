@@ -17,7 +17,7 @@ web_instance_id=$(aws ec2 run-instances \
     --instance-type t3.micro \
    --security-group-ids sg-0e1875cf2c9414138 \
     --subnet-id subnet-09cc0b32fa38571c7 \
-    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-${instance}}]" \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-frontend}]" \
     --query 'Instances[0].InstanceId' \
     --output text)
 
