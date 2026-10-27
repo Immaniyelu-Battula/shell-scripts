@@ -32,10 +32,11 @@ echo "script start time $timestamp"
 dnf install python3 gcc python3-devel -y &>> $LOGFILE
 validate $? "Install python libraries"
 
-if [ $id = roboshop ];then 
-echo "usesr already exists"
-else
+id roboshop
+if [ $? -ne 0 ]; then
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGFILE
+else
+echo "user is already exists"
 fi
 validate $? " adding roboshop user"
 rm -rf /app &>> $LOGFILE
