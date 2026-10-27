@@ -55,7 +55,8 @@ systemctl enable catalogue &>> $LOGFILE
 systemctl start catalogue &>> $LOGFILE
 validate $? "restarting the  catalogue"
 
+cp $scripts_dir/mongo.repo /etc/yum.repos.d/mongo.repo
 dnf install mongodb-mongosh -y &>> $LOGFILE
 
 
-#mongosh --host mongodb.immaniyelu.shop </app/db/master-data.js
+mongosh --host mongodb.immaniyelu.shop </app/db/master-data.js
