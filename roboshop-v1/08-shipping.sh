@@ -31,7 +31,12 @@ echo "script start time $timestamp"
 
 dnf install maven -y &>> $LOGFILE
 validate $? "install maven"
+id roboshop
+if [ $? -ne 0 ]; then
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGFILE
+else
+echo "user is already exists"
+fi
 rm /app &>> $LOGFILE
 mkdir /app &>> $LOGFILE
 validate $? "add user roboshop & add /app folder"
