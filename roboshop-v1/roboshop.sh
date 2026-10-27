@@ -61,7 +61,7 @@ db_instance_id=$(aws ec2 run-instances \
     --output text)
 db_ip=$(aws ec2 describe-instances \
   --instance-ids "$db_instance_id" \
-  --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+  --query 'Reservations[0].Instances[0].PublicIpAddress' \
   --output text)
 
 db_r53=$(aws route53 change-resource-record-sets \
@@ -100,7 +100,7 @@ app_instance_id=$(aws ec2 run-instances \
     --output text)
 app_ip=$(aws ec2 describe-instances \
   --instance-ids "$app_instance_id" \
-  --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+  --query 'Reservations[0].Instances[0].PublicIpAddress' \
   --output text)
 app_r53=$(aws route53 change-resource-record-sets \
   --hosted-zone-id "$zone_id" \
