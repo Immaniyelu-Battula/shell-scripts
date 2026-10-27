@@ -49,7 +49,7 @@ validate $? "downloading & extracting the payment.zip"
 cd /app &>> $LOGFILE
 pip3 install -r requirements.txt &>> $LOGFILE
 validate $? "compile python and create artifact"
-cp payment.service /etc/systemd/system/payment.service &>> $LOGFILE
+cp $scripts_dir/payment.service /etc/systemd/system/payment.service &>> $LOGFILE
 systemctl daemon-reload &>> $LOGFILE
 
 validate $? "reload systemctl services"
