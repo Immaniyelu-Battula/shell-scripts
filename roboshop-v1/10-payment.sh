@@ -32,7 +32,6 @@ echo "script start time $timestamp"
 dnf install python3 gcc python3-devel -y &>> $LOGFILE
 validate $? "Install python libraries"
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGFILE
-validate $? "adding roboshop user"
 rm -rf /app &>> $LOGFILE
 mkdir /app &>> $LOGFILE
 validate $? "deleting & creating /app folder"
