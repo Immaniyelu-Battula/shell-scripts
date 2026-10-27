@@ -43,6 +43,7 @@ cd /app &>> $LOGFILE
 mvn clean package &>> $LOGFILE
 mv target/shipping-1.0.jar shipping.jar &>> $LOGFILE
 validate $? "compile maven and create artifact"
+cp $scripts_dir/shipping.service /etc/systemd/system/shipping.service
 systemctl daemon-reload &>> $LOGFILE
 validate $? "reload systemctl services"
 systemctl enable shipping &>> $LOGFILE
