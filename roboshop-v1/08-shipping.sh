@@ -37,7 +37,7 @@ useradd --system --home /app --shell /sbin/nologin --comment "roboshop system us
 else
 echo "user is already exists"
 fi
-rm /app &>> $LOGFILE
+rm -rf /app &>> $LOGFILE
 mkdir /app &>> $LOGFILE
 validate $? "add user roboshop & add /app folder"
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $LOGFILE
