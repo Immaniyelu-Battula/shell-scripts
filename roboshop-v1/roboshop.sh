@@ -5,6 +5,12 @@ domain_name="immaniyelu.shop"
 apps=("catalogue" "user" "shipping" "payment" "cart" "dispatch")
 web="frontend"
 db=("mysql" "rabbitmq" "redis" "mongodb")
+web_subnet="subnet-085bc7d2582bd30a3"
+web_sg=("sg-093d178cdad492061" "sg-03e19f2d4c6b52184")
+db_sg=("sg-093d178cdad492061" "sg-020c7b4724b2aff12")
+apps_sg=("rsg-093d178cdad492061" "sg-0e52d936f8d0ccd85") 
+apps_subnet="subnet-03ae95466630cdc32"
+db_subnet="subnet-08dcbd9b7cbc76712"
 if [ "$#" -eq "0" ]; then
 echo "Please pass one argument"
 echo "USAGE :: $0 [web | db | apps ]"
@@ -15,8 +21,8 @@ if [ "$1" = "web" ]; then
 web_instance_id=$(aws ec2 run-instances \
     --image-id $ami_id \
     --instance-type t3.micro \
-   --security-group-ids sg-0e1875cf2c9414138 \
-    --subnet-id subnet-09cc0b32fa38571c7 \
+   --security-group-ids $web_sg \
+    --subnet-id $web_subnet \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-frontend}]" \
     --query 'Instances[0].InstanceId' \
     --output text)
@@ -54,14 +60,14 @@ echo "Instace is db createing $instance"
 db_instance_id=$(aws ec2 run-instances \
     --image-id $ami_id \
     --instance-type t3.micro \
-   --security-group-ids sg-0e1875cf2c9414138 \
-    --subnet-id subnet-09cc0b32fa38571c7 \
+   --security-group-ids $db_sg \
+    --subnet-id $db_subnet \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-${instance}}]" \
     --query 'Instances[0].InstanceId' \
     --output text)
 db_ip=$(aws ec2 describe-instances \
   --instance-ids "$db_instance_id" \
-  --query 'Reservations[0].Instances[0].PublicIpAddress' \
+  --query 'Reservations[0].Instances[0].PrivateIpAddress' \
   --output text)
 
 db_r53=$(aws route53 change-resource-record-sets \
@@ -93,14 +99,14 @@ echo "Instace is apps createing $instance"
 app_instance_id=$(aws ec2 run-instances \
     --image-id $ami_id \
     --instance-type t3.micro \
-   --security-group-ids sg-0e1875cf2c9414138 \
-    --subnet-id subnet-09cc0b32fa38571c7 \
+   --security-group-ids $apps_sg \
+    --subnet-id $apps_subnet \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-${instance}}]" \
     --query 'Instances[0].InstanceId' \
     --output text)
 app_ip=$(aws ec2 describe-instances \
   --instance-ids "$app_instance_id" \
-  --query 'Reservations[0].Instances[0].PublicIpAddress' \
+  --query 'Reservations[0].Instances[0].PrivateIpAddress' \
   --output text)
 app_r53=$(aws route53 change-resource-record-sets \
   --hosted-zone-id "$zone_id" \
